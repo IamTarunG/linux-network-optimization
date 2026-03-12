@@ -1,12 +1,14 @@
 import subprocess
 import matplotlib.pyplot as plt
+import time
 
 def set_kernel_buffers(size_bytes):
     params = {
         "net.core.rmem_max": size_bytes,
         "net.core.wmem_max": size_bytes,
         "net.ipv4.tcp_rmem": f"4096 87380 {size_bytes}",
-        "net.ipv4.tcp_wmem": f"4096 65536 {size_bytes}"
+        "net.ipv4.tcp_wmem": f"4096 65536 {size_bytes}",
+        "net.ipv4.tcp_window_scaling": 1
     }
     
     for param, value in params.items():
