@@ -13,6 +13,7 @@ I compared two configurations using my Python script to see how they handle a 12
 ### Key Findings:
 * **Lower Latency Baseline:** The optimized settings (green line) stay consistently lower than the restricted settings (red line). 
 * **Fewer Spikes:** With small 64KB buffers, the system frequently hits latency spikes. This happens because the buffer is too small for the 128KB payload, causing the kernel to stall and wait for acknowledgments.
+* **Result:** Increasing the Linux TCP buffer limits reduced the baseline latency by **~330 ms (~31%)** for the 128KB workload.
 
 
 ## 🛠️ How it works
@@ -28,4 +29,5 @@ The script modifies the kernel's read/write memory limits. Here is the logic use
 "net.core.rmem_max": 16777216,
 "net.core.wmem_max": 16777216,
 "net.ipv4.tcp_rmem": "4096 87380 16777216",
-"net.ipv4.tcp_wmem": "4096 65536 16777216"
+"net.ipv4.tcp_wmem": "4096 65536 16777216",
+"net.ipv4.tcp_window_scaling": 1
