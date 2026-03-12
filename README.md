@@ -13,8 +13,6 @@ I compared two configurations using my Python script to see how they handle a 12
 ### Key Findings:
 * **Lower Latency Baseline:** The optimized settings (green line) stay consistently lower than the restricted settings (red line). 
 * **Fewer Spikes:** With small 64KB buffers, the system frequently hits latency spikes. This happens because the buffer is too small for the 128KB payload, causing the kernel to stall and wait for acknowledgments.
-* **2% Efficiency Gain:** By increasing the buffer size, the kernel can send the 128KB payload in one go instead of splitting it. This removes the "stop-and-wait" delay, making the transfer roughly 28% faster.
-
 
 
 ## 🛠️ How it works
