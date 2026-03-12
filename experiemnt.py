@@ -13,6 +13,7 @@ def set_kernel_buffers(size_bytes):
     
     for param, value in params.items():
         subprocess.run(['sudo', 'sysctl', '-w', f'{param}={value}'], check=True)
+    time.sleep(2) 
 
 def run_benchmark():
     result = subprocess.run(['./profiler/target/release/profiler'], capture_output=True, text=True)

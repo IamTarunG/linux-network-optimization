@@ -5,8 +5,10 @@ use std::time::{Instant, Duration};
 #[tokio::main]
 async fn main() {
     let target = "8.8.8.8:80";
-    let heavy_payload = vec![0u8; 128_000]; 
-
+    let heavy_payload = vec![0u8; 128_000];
+    for _ in 0..5 {
+        let _ = TcpStream::connect(target).await;
+    }
     for _ in 0..50 {
         let start = Instant::now();
         
